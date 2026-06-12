@@ -1,0 +1,112 @@
+{
+  "slide": 5,
+  "width": 1920,
+  "height": 1080,
+  "duration": 28.03,
+  "layers": [
+    {
+      "name": "slide_05_title_01.png",
+      "type": "title",
+      "x": 239,
+      "y": 70,
+      "width": 1443,
+      "height": 125,
+      "z_index": 5,
+      "animation": "fade-in-down",
+      "start": 0.45,
+      "duration": 0.7,
+      "narration_cue": "title"
+    },
+    {
+      "name": "slide_05_key_point_card_01.png",
+      "type": "key_point_card",
+      "x": 797,
+      "y": 232,
+      "width": 1074,
+      "height": 115,
+      "z_index": 6,
+      "animation": "fade-in-up",
+      "start": 3.68,
+      "duration": 0.7,
+      "narration_cue": "key_point_card"
+    },
+    {
+      "name": "slide_05_key_point_card_02.png",
+      "type": "key_point_card",
+      "x": 797,
+      "y": 352,
+      "width": 1074,
+      "height": 116,
+      "z_index": 7,
+      "animation": "fade-in-up",
+      "start": 6.91,
+      "duration": 0.7,
+      "narration_cue": "key_point_card"
+    },
+    {
+      "name": "slide_05_key_point_card_03.png",
+      "type": "key_point_card",
+      "x": 797,
+      "y": 473,
+      "width": 1074,
+      "height": 115,
+      "z_index": 8,
+      "animation": "fade-in-up",
+      "start": 10.14,
+      "duration": 0.7,
+      "narration_cue": "key_point_card"
+    },
+    {
+      "name": "slide_05_key_point_card_04.png",
+      "type": "key_point_card",
+      "x": 797,
+      "y": 593,
+      "width": 1074,
+      "height": 116,
+      "z_index": 9,
+      "animation": "fade-in-up",
+      "start": 13.37,
+      "duration": 0.7,
+      "narration_cue": "key_point_card"
+    },
+    {
+      "name": "slide_05_key_point_card_05.png",
+      "type": "key_point_card",
+      "x": 797,
+      "y": 714,
+      "width": 1074,
+      "height": 115,
+      "z_index": 10,
+      "animation": "fade-in-up",
+      "start": 16.59,
+      "duration": 0.7,
+      "narration_cue": "key_point_card"
+    },
+    {
+      "name": "slide_05_key_point_card_06.png",
+      "type": "key_point_card",
+      "x": 50,
+      "y": 858,
+      "width": 704,
+      "height": 171,
+      "z_index": 11,
+      "animation": "fade-in-up",
+      "start": 19.82,
+      "duration": 0.7,
+      "narration_cue": "key_point_card"
+    },
+    {
+      "name": "slide_05_key_point_card_07.png",
+      "type": "key_point_card",
+      "x": 797,
+      "y": 834,
+      "width": 1074,
+      "height": 115,
+      "z_index": 12,
+      "animation": "fade-in-up",
+      "start": 23.05,
+      "duration": 0.7,
+      "narration_cue": "key_point_card"
+    }
+  ]
+}
