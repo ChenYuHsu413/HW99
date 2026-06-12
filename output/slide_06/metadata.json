@@ -1,0 +1,47 @@
+{
+  "slide": 6,
+  "width": 1920,
+  "height": 1080,
+  "duration": 13.7,
+  "layers": [
+    {
+      "name": "slide_06_illustration_01.png",
+      "type": "illustration",
+      "x": 181,
+      "y": 102,
+      "width": 682,
+      "height": 487,
+      "z_index": 5,
+      "animation": "zoom-in",
+      "start": 0.45,
+      "duration": 0.7,
+      "narration_cue": "V4 升級"
+    },
+    {
+      "name": "slide_06_illustration_02.png",
+      "type": "illustration",
+      "x": 1058,
+      "y": 125,
+      "width": 681,
+      "height": 460,
+      "z_index": 6,
+      "animation": "zoom-in",
+      "start": 4.28,
+      "duration": 0.7,
+      "narration_cue": "想法提示"
+    },
+    {
+      "name": "slide_06_illustration_03.png",
+      "type": "illustration",
+      "x": 480,
+      "y": 656,
+      "width": 961,
+      "height": 313,
+      "z_index": 7,
+      "animation": "zoom-in",
+      "start": 8.12,
+      "duration": 0.7,
+      "narration_cue": "十種演算法"
+    }
+  ]
+}

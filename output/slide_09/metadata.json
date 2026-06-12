@@ -1,0 +1,47 @@
+{
+  "slide": 9,
+  "width": 1920,
+  "height": 1080,
+  "duration": 13.65,
+  "layers": [
+    {
+      "name": "slide_09_key_point_card_01.png",
+      "type": "key_point_card",
+      "x": 101,
+      "y": 221,
+      "width": 544,
+      "height": 639,
+      "z_index": 5,
+      "animation": "fade-in-up",
+      "start": 0.45,
+      "duration": 0.7,
+      "narration_cue": "觀點轉換"
+    },
+    {
+      "name": "slide_09_illustration_01.png",
+      "type": "illustration",
+      "x": 695,
+      "y": 396,
+      "width": 530,
+      "height": 210,
+      "z_index": 6,
+      "animation": "zoom-in",
+      "start": 4.27,
+      "duration": 0.7,
+      "narration_cue": "Before"
+    },
+    {
+      "name": "slide_09_key_point_card_02.png",
+      "type": "key_point_card",
+      "x": 1276,
+      "y": 221,
+      "width": 543,
+      "height": 639,
+      "z_index": 7,
+      "animation": "fade-in-up",
+      "start": 8.08,
+      "duration": 0.7,
+      "narration_cue": "轉換"
+    }
+  ]
+}

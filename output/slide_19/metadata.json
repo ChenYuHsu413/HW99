@@ -1,0 +1,47 @@
+{
+  "slide": 19,
+  "width": 1920,
+  "height": 1080,
+  "duration": 16.01,
+  "layers": [
+    {
+      "name": "slide_19_key_point_card_01.png",
+      "type": "key_point_card",
+      "x": 480,
+      "y": 63,
+      "width": 961,
+      "height": 375,
+      "z_index": 5,
+      "animation": "fade-in-up",
+      "start": 0.45,
+      "duration": 0.7,
+      "narration_cue": "結論"
+    },
+    {
+      "name": "slide_19_key_point_card_02.png",
+      "type": "key_point_card",
+      "x": 142,
+      "y": 489,
+      "width": 717,
+      "height": 520,
+      "z_index": 6,
+      "animation": "fade-in-up",
+      "start": 5.05,
+      "duration": 0.7,
+      "narration_cue": "Model A"
+    },
+    {
+      "name": "slide_19_key_point_card_03.png",
+      "type": "key_point_card",
+      "x": 1043,
+      "y": 492,
+      "width": 734,
+      "height": 518,
+      "z_index": 7,
+      "animation": "fade-in-up",
+      "start": 9.66,
+      "duration": 0.7,
+      "narration_cue": "CRISP-DM"
+    }
+  ]
+}

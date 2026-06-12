@@ -1,0 +1,47 @@
+{
+  "slide": 12,
+  "width": 1920,
+  "height": 1080,
+  "duration": 13.82,
+  "layers": [
+    {
+      "name": "slide_12_key_point_card_01.png",
+      "type": "key_point_card",
+      "x": 1003,
+      "y": 51,
+      "width": 826,
+      "height": 490,
+      "z_index": 5,
+      "animation": "fade-in-up",
+      "start": 0.45,
+      "duration": 0.7,
+      "narration_cue": "最強特徵"
+    },
+    {
+      "name": "slide_12_highlight_group_01.png",
+      "type": "highlight_group",
+      "x": 103,
+      "y": 138,
+      "width": 736,
+      "height": 806,
+      "z_index": 6,
+      "animation": "pop-in",
+      "start": 4.32,
+      "duration": 0.7,
+      "narration_cue": "皇冠"
+    },
+    {
+      "name": "slide_12_illustration_01.png",
+      "type": "illustration",
+      "x": 1000,
+      "y": 576,
+      "width": 828,
+      "height": 454,
+      "z_index": 7,
+      "animation": "zoom-in",
+      "start": 8.2,
+      "duration": 0.7,
+      "narration_cue": "R&D Spend"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "slide": 2,
+  "width": 1920,
+  "height": 1080,
+  "duration": 15.33,
+  "layers": [
+    {
+      "name": "slide_02_key_point_card_01.png",
+      "type": "key_point_card",
+      "x": 102,
+      "y": 107,
+      "width": 786,
+      "height": 285,
+      "z_index": 5,
+      "animation": "fade-in-up",
+      "start": 0.45,
+      "duration": 0.7,
+      "narration_cue": "預測目標"
+    },
+    {
+      "name": "slide_02_key_point_card_02.png",
+      "type": "key_point_card",
+      "x": 997,
+      "y": 349,
+      "width": 832,
+      "height": 385,
+      "z_index": 6,
+      "animation": "fade-in-up",
+      "start": 4.83,
+      "duration": 0.7,
+      "narration_cue": "資料內容"
+    },
+    {
+      "name": "slide_02_key_point_card_03.png",
+      "type": "key_point_card",
+      "x": 102,
+      "y": 601,
+      "width": 802,
+      "height": 373,
+      "z_index": 7,
+      "animation": "fade-in-up",
+      "start": 9.2,
+      "duration": 0.7,
+      "narration_cue": "模型任務"
+    }
+  ]
+}

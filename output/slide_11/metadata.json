@@ -1,0 +1,60 @@
+{
+  "slide": 11,
+  "width": 1920,
+  "height": 1080,
+  "duration": 13.03,
+  "layers": [
+    {
+      "name": "slide_11_title_01.png",
+      "type": "title",
+      "x": 260,
+      "y": 65,
+      "width": 1415,
+      "height": 159,
+      "z_index": 5,
+      "animation": "fade-in-down",
+      "start": 0.45,
+      "duration": 0.7,
+      "narration_cue": "R-squared"
+    },
+    {
+      "name": "slide_11_chart_01.png",
+      "type": "chart",
+      "x": 124,
+      "y": 336,
+      "width": 1704,
+      "height": 724,
+      "z_index": 6,
+      "animation": "draw-in",
+      "start": 3.16,
+      "duration": 0.7,
+      "narration_cue": "解釋力圖"
+    },
+    {
+      "name": "slide_11_annotation_01.png",
+      "type": "annotation",
+      "x": 1108,
+      "y": 429,
+      "width": 717,
+      "height": 312,
+      "z_index": 7,
+      "animation": "fade-in",
+      "start": 4.01,
+      "duration": 0.7,
+      "narration_cue": "下降趨勢"
+    },
+    {
+      "name": "slide_11_annotation_02.png",
+      "type": "annotation",
+      "x": 330,
+      "y": 338,
+      "width": 549,
+      "height": 150,
+      "z_index": 8,
+      "animation": "fade-in",
+      "start": 4.01,
+      "duration": 0.7,
+      "narration_cue": "下降趨勢"
+    }
+  ]
+}

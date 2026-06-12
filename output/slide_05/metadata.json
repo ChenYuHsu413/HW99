@@ -1,0 +1,34 @@
+{
+  "slide": 5,
+  "width": 1920,
+  "height": 1080,
+  "duration": 15.14,
+  "layers": [
+    {
+      "name": "slide_05_table_01.png",
+      "type": "table",
+      "x": 122,
+      "y": 137,
+      "width": 1225,
+      "height": 804,
+      "z_index": 5,
+      "animation": "fade-in-up",
+      "start": 0.45,
+      "duration": 0.7,
+      "narration_cue": "實驗設計"
+    },
+    {
+      "name": "slide_05_key_point_card_01.png",
+      "type": "key_point_card",
+      "x": 1421,
+      "y": 310,
+      "width": 435,
+      "height": 461,
+      "z_index": 6,
+      "animation": "fade-in-up",
+      "start": 6.92,
+      "duration": 0.7,
+      "narration_cue": "五種模型"
+    }
+  ]
+}

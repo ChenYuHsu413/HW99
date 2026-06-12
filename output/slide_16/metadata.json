@@ -1,0 +1,47 @@
+{
+  "slide": 16,
+  "width": 1920,
+  "height": 1080,
+  "duration": 13.46,
+  "layers": [
+    {
+      "name": "slide_16_key_point_card_01.png",
+      "type": "key_point_card",
+      "x": 90,
+      "y": 300,
+      "width": 519,
+      "height": 481,
+      "z_index": 5,
+      "animation": "fade-in-up",
+      "start": 0.45,
+      "duration": 0.7,
+      "narration_cue": "Top-5"
+    },
+    {
+      "name": "slide_16_key_point_card_02.png",
+      "type": "key_point_card",
+      "x": 691,
+      "y": 300,
+      "width": 595,
+      "height": 475,
+      "z_index": 6,
+      "animation": "fade-in-up",
+      "start": 4.2,
+      "duration": 0.7,
+      "narration_cue": "演算法"
+    },
+    {
+      "name": "slide_16_key_point_card_03.png",
+      "type": "key_point_card",
+      "x": 1352,
+      "y": 300,
+      "width": 478,
+      "height": 474,
+      "z_index": 7,
+      "animation": "fade-in-up",
+      "start": 7.96,
+      "duration": 0.7,
+      "narration_cue": "特徵列表"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "slide": 10,
+  "width": 1920,
+  "height": 1080,
+  "duration": 13.77,
+  "layers": [
+    {
+      "name": "slide_10_title_01.png",
+      "type": "title",
+      "x": 147,
+      "y": 42,
+      "width": 1632,
+      "height": 158,
+      "z_index": 5,
+      "animation": "fade-in-down",
+      "start": 0.45,
+      "duration": 0.7,
+      "narration_cue": "RMSE"
+    },
+    {
+      "name": "slide_10_chart_01.png",
+      "type": "chart",
+      "x": 333,
+      "y": 283,
+      "width": 1147,
+      "height": 686,
+      "z_index": 6,
+      "animation": "draw-in",
+      "start": 3.34,
+      "duration": 0.7,
+      "narration_cue": "圖表"
+    },
+    {
+      "name": "slide_10_annotation_01.png",
+      "type": "annotation",
+      "x": 388,
+      "y": 749,
+      "width": 1060,
+      "height": 209,
+      "z_index": 7,
+      "animation": "fade-in",
+      "start": 4.19,
+      "duration": 0.7,
+      "narration_cue": "最佳點"
+    },
+    {
+      "name": "slide_10_illustration_01.png",
+      "type": "illustration",
+      "x": 743,
+      "y": 920,
+      "width": 501,
+      "height": 130,
+      "z_index": 8,
+      "animation": "zoom-in",
+      "start": 9.13,
+      "duration": 0.7,
+      "narration_cue": "最佳點"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "slide": 13,
+  "width": 1920,
+  "height": 1080,
+  "duration": 13.97,
+  "layers": [
+    {
+      "name": "slide_13_illustration_01.png",
+      "type": "illustration",
+      "x": 900,
+      "y": 51,
+      "width": 895,
+      "height": 478,
+      "z_index": 5,
+      "animation": "zoom-in",
+      "start": 0.45,
+      "duration": 0.7,
+      "narration_cue": "Marketing"
+    },
+    {
+      "name": "slide_13_illustration_02.png",
+      "type": "illustration",
+      "x": 139,
+      "y": 75,
+      "width": 650,
+      "height": 885,
+      "z_index": 6,
+      "animation": "zoom-in",
+      "start": 4.37,
+      "duration": 0.7,
+      "narration_cue": "擴音器"
+    },
+    {
+      "name": "slide_13_illustration_03.png",
+      "type": "illustration",
+      "x": 900,
+      "y": 549,
+      "width": 895,
+      "height": 424,
+      "z_index": 7,
+      "animation": "zoom-in",
+      "start": 8.3,
+      "duration": 0.7,
+      "narration_cue": "輔助特徵"
+    }
+  ]
+}

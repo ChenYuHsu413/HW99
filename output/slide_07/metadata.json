@@ -1,0 +1,60 @@
+{
+  "slide": 7,
+  "width": 1920,
+  "height": 1080,
+  "duration": 15.0,
+  "layers": [
+    {
+      "name": "slide_07_key_point_card_01.png",
+      "type": "key_point_card",
+      "x": 106,
+      "y": 98,
+      "width": 521,
+      "height": 560,
+      "z_index": 5,
+      "animation": "fade-in-up",
+      "start": 0.45,
+      "duration": 0.7,
+      "narration_cue": "方法分類"
+    },
+    {
+      "name": "slide_07_key_point_card_02.png",
+      "type": "key_point_card",
+      "x": 700,
+      "y": 98,
+      "width": 540,
+      "height": 560,
+      "z_index": 6,
+      "animation": "fade-in-up",
+      "start": 3.65,
+      "duration": 0.7,
+      "narration_cue": "過濾法"
+    },
+    {
+      "name": "slide_07_key_point_card_03.png",
+      "type": "key_point_card",
+      "x": 1304,
+      "y": 98,
+      "width": 528,
+      "height": 560,
+      "z_index": 7,
+      "animation": "fade-in-up",
+      "start": 6.85,
+      "duration": 0.7,
+      "narration_cue": "封裝法"
+    },
+    {
+      "name": "slide_07_illustration_01.png",
+      "type": "illustration",
+      "x": 231,
+      "y": 746,
+      "width": 1458,
+      "height": 278,
+      "z_index": 8,
+      "animation": "zoom-in",
+      "start": 10.05,
+      "duration": 0.7,
+      "narration_cue": "嵌入法"
+    }
+  ]
+}

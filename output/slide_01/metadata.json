@@ -1,0 +1,73 @@
+{
+  "slide": 1,
+  "width": 1920,
+  "height": 1080,
+  "duration": 15.77,
+  "layers": [
+    {
+      "name": "slide_01_title_01.png",
+      "type": "title",
+      "x": 479,
+      "y": 147,
+      "width": 963,
+      "height": 254,
+      "z_index": 5,
+      "animation": "fade-in-down",
+      "start": 0.45,
+      "duration": 0.7,
+      "narration_cue": "專案主題"
+    },
+    {
+      "name": "slide_01_key_point_card_01.png",
+      "type": "key_point_card",
+      "x": 1484,
+      "y": 27,
+      "width": 406,
+      "height": 129,
+      "z_index": 6,
+      "animation": "fade-in-up",
+      "start": 3.16,
+      "duration": 0.7,
+      "narration_cue": "資料與預測任務"
+    },
+    {
+      "name": "slide_01_arrow_01.png",
+      "type": "arrow",
+      "x": 152,
+      "y": 640,
+      "width": 36,
+      "height": 43,
+      "z_index": 7,
+      "animation": "wipe-in",
+      "start": 5.88,
+      "duration": 0.7,
+      "narration_cue": "學習方向"
+    },
+    {
+      "name": "slide_01_illustration_01.png",
+      "type": "illustration",
+      "x": 175,
+      "y": 458,
+      "width": 220,
+      "height": 207,
+      "z_index": 8,
+      "animation": "zoom-in",
+      "start": 8.59,
+      "duration": 0.7,
+      "narration_cue": "學習方向"
+    },
+    {
+      "name": "slide_01_illustration_02.png",
+      "type": "illustration",
+      "x": 597,
+      "y": 558,
+      "width": 709,
+      "height": 149,
+      "z_index": 9,
+      "animation": "zoom-in",
+      "start": 11.31,
+      "duration": 0.7,
+      "narration_cue": "學習方向"
+    }
+  ]
+}

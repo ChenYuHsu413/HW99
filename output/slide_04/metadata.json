@@ -1,0 +1,73 @@
+{
+  "slide": 4,
+  "width": 1920,
+  "height": 1080,
+  "duration": 15.36,
+  "layers": [
+    {
+      "name": "slide_04_key_point_card_01.png",
+      "type": "key_point_card",
+      "x": 707,
+      "y": 88,
+      "width": 485,
+      "height": 315,
+      "z_index": 5,
+      "animation": "fade-in-up",
+      "start": 0.45,
+      "duration": 0.7,
+      "narration_cue": "流程"
+    },
+    {
+      "name": "slide_04_icon_01.png",
+      "type": "icon",
+      "x": 698,
+      "y": 418,
+      "width": 105,
+      "height": 156,
+      "z_index": 6,
+      "animation": "pop-in",
+      "start": 3.08,
+      "duration": 0.7,
+      "narration_cue": "步驟推進"
+    },
+    {
+      "name": "slide_04_icon_02.png",
+      "type": "icon",
+      "x": 1086,
+      "y": 419,
+      "width": 107,
+      "height": 134,
+      "z_index": 7,
+      "animation": "pop-in",
+      "start": 5.71,
+      "duration": 0.7,
+      "narration_cue": "特徵選擇"
+    },
+    {
+      "name": "slide_04_key_point_card_02.png",
+      "type": "key_point_card",
+      "x": 380,
+      "y": 574,
+      "width": 521,
+      "height": 372,
+      "z_index": 8,
+      "animation": "fade-in-up",
+      "start": 8.35,
+      "duration": 0.7,
+      "narration_cue": "特徵選擇"
+    },
+    {
+      "name": "slide_04_key_point_card_03.png",
+      "type": "key_point_card",
+      "x": 1053,
+      "y": 565,
+      "width": 460,
+      "height": 445,
+      "z_index": 9,
+      "animation": "fade-in-up",
+      "start": 10.98,
+      "duration": 0.7,
+      "narration_cue": "特徵選擇"
+    }
+  ]
+}

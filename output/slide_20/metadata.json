@@ -1,0 +1,34 @@
+{
+  "slide": 20,
+  "width": 1920,
+  "height": 1080,
+  "duration": 14.01,
+  "layers": [
+    {
+      "name": "slide_20_illustration_01.png",
+      "type": "illustration",
+      "x": 315,
+      "y": 372,
+      "width": 1296,
+      "height": 110,
+      "z_index": 5,
+      "animation": "zoom-in",
+      "start": 0.45,
+      "duration": 0.7,
+      "narration_cue": "結束"
+    },
+    {
+      "name": "slide_20_key_point_card_01.png",
+      "type": "key_point_card",
+      "x": 493,
+      "y": 629,
+      "width": 934,
+      "height": 286,
+      "z_index": 6,
+      "animation": "fade-in-up",
+      "start": 6.35,
+      "duration": 0.7,
+      "narration_cue": "README"
+    }
+  ]
+}

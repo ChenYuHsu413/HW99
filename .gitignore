@@ -1,0 +1,9 @@
+node_modules/
+__pycache__/
+*.pyc
+
+# 56MB intermediate audio mix; rebuilt by scripts/render_final_video.py
+final/narration_full.wav
+final/narration_full.mp3
+final/video_concat_list.txt
+.npm-cache/

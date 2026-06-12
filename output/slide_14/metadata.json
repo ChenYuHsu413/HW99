@@ -1,0 +1,47 @@
+{
+  "slide": 14,
+  "width": 1920,
+  "height": 1080,
+  "duration": 12.93,
+  "layers": [
+    {
+      "name": "slide_14_key_point_card_01.png",
+      "type": "key_point_card",
+      "x": 965,
+      "y": 94,
+      "width": 691,
+      "height": 426,
+      "z_index": 5,
+      "animation": "fade-in-up",
+      "start": 0.45,
+      "duration": 0.7,
+      "narration_cue": "其他特徵"
+    },
+    {
+      "name": "slide_14_illustration_01.png",
+      "type": "illustration",
+      "x": 295,
+      "y": 195,
+      "width": 537,
+      "height": 697,
+      "z_index": 6,
+      "animation": "zoom-in",
+      "start": 4.03,
+      "duration": 0.7,
+      "narration_cue": "Administration"
+    },
+    {
+      "name": "slide_14_key_point_card_02.png",
+      "type": "key_point_card",
+      "x": 968,
+      "y": 557,
+      "width": 690,
+      "height": 449,
+      "z_index": 7,
+      "animation": "fade-in-up",
+      "start": 7.6,
+      "duration": 0.7,
+      "narration_cue": "State"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "slide": 15,
+  "width": 1920,
+  "height": 1080,
+  "duration": 14.25,
+  "layers": [
+    {
+      "name": "slide_15_key_point_card_01.png",
+      "type": "key_point_card",
+      "x": 67,
+      "y": 290,
+      "width": 602,
+      "height": 497,
+      "z_index": 5,
+      "animation": "fade-in-up",
+      "start": 0.45,
+      "duration": 0.7,
+      "narration_cue": "最佳模型"
+    },
+    {
+      "name": "slide_15_highlight_group_01.png",
+      "type": "highlight_group",
+      "x": 725,
+      "y": 288,
+      "width": 499,
+      "height": 498,
+      "z_index": 6,
+      "animation": "pop-in",
+      "start": 4.47,
+      "duration": 0.7,
+      "narration_cue": "SelectKBest"
+    },
+    {
+      "name": "slide_15_key_point_card_02.png",
+      "type": "key_point_card",
+      "x": 1273,
+      "y": 341,
+      "width": 599,
+      "height": 380,
+      "z_index": 7,
+      "animation": "fade-in-up",
+      "start": 8.48,
+      "duration": 0.7,
+      "narration_cue": "R&D Spend"
+    }
+  ]
+}
