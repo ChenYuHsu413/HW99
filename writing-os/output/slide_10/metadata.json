@@ -2,7 +2,7 @@
   "slide": 10,
   "width": 1920,
   "height": 1080,
-  "duration": 30.65,
+  "duration": 20.61,
   "layers": [
     {
       "name": "slide_10_title_01.png",
@@ -26,7 +26,7 @@
       "height": 530,
       "z_index": 6,
       "animation": "fade-in-up",
-      "start": 4.51,
+      "start": 3.52,
       "duration": 0.7,
       "narration_cue": "key_point_card"
     },
@@ -39,7 +39,7 @@
       "height": 530,
       "z_index": 7,
       "animation": "fade-in-up",
-      "start": 8.58,
+      "start": 6.59,
       "duration": 0.7,
       "narration_cue": "key_point_card"
     },
@@ -52,7 +52,7 @@
       "height": 210,
       "z_index": 8,
       "animation": "fade-in-up",
-      "start": 12.64,
+      "start": 9.65,
       "duration": 0.7,
       "narration_cue": "key_point_card"
     },
@@ -65,7 +65,7 @@
       "height": 210,
       "z_index": 9,
       "animation": "fade-in-up",
-      "start": 16.71,
+      "start": 12.72,
       "duration": 0.7,
       "narration_cue": "key_point_card"
     },
@@ -78,22 +78,9 @@
       "height": 210,
       "z_index": 10,
       "animation": "fade-in-up",
-      "start": 20.77,
+      "start": 15.79,
       "duration": 0.7,
       "narration_cue": "key_point_card"
-    },
-    {
-      "name": "slide_10_text_block_01.png",
-      "type": "text_block",
-      "x": 1833,
-      "y": 790,
-      "width": 27,
-      "height": 239,
-      "z_index": 11,
-      "animation": "fade-in-up",
-      "start": 24.84,
-      "duration": 0.7,
-      "narration_cue": "text_block"
     }
   ]
 }

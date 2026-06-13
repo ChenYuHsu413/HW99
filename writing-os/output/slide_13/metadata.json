@@ -2,7 +2,7 @@
   "slide": 13,
   "width": 1920,
   "height": 1080,
-  "duration": 15.0,
+  "duration": 10.2,
   "layers": [
     {
       "name": "slide_13_table_01.png",
@@ -26,7 +26,7 @@
       "height": 151,
       "z_index": 6,
       "animation": "zoom-in",
-      "start": 4.72,
+      "start": 3.12,
       "duration": 0.7,
       "narration_cue": "illustration"
     },
@@ -39,7 +39,7 @@
       "height": 35,
       "z_index": 7,
       "animation": "fade-in-up",
-      "start": 8.98,
+      "start": 5.78,
       "duration": 0.7,
       "narration_cue": "text_block"
     }

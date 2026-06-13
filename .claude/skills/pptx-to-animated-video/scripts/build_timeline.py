@@ -44,12 +44,48 @@ def srt_time(seconds):
     return f"{whole // 3600:02d}:{whole % 3600 // 60:02d}:{whole % 60:02d},{ms:03d}"
 
 
+SUB_CHUNK_MAX = 32  # CJK chars per subtitle cue (~1-2 lines at FontSize=11)
+
+
+def chunk_narration(text, max_chars=SUB_CHUNK_MAX):
+    """Split a slide's narration into short subtitle cues.
+
+    Prefers sentence boundaries (。！？), then clause boundaries (，：；、)
+    when a sentence is too long. Each cue stays under max_chars CJK
+    characters so the burned subtitle fits 1-2 lines at the bottom and
+    doesn't climb into the slide content.
+    """
+    text = text.strip()
+    if not text:
+        return []
+    sentences = [s.strip() for s in re.split(r"(?<=[。！？])\s*", text) if s.strip()]
+    chunks = []
+    for s in sentences:
+        if len(s) <= max_chars:
+            chunks.append(s)
+            continue
+        parts = [p.strip() for p in re.split(r"(?<=[，：；、])\s*", s) if p.strip()]
+        current = ""
+        for p in parts:
+            if not current:
+                current = p
+            elif len(current) + len(p) <= max_chars:
+                current += p
+            else:
+                chunks.append(current)
+                current = p
+        if current:
+            chunks.append(current)
+    return chunks
+
+
 def main():
     scripts = parse_script()
     metadatas = load_metadatas()
     timing = {}
     srt, vtt = [], ["WEBVTT", ""]
     cursor = 0.0
+    cue_idx = 0
     for meta in metadatas:
         n = meta["slide"]
         key = f"slide_{n:02d}"
@@ -71,12 +107,30 @@ def main():
                 for l in meta["layers"]
             ],
         }
-        srt += [str(n), f"{srt_time(start)} --> {srt_time(end - 0.35)}", script, ""]
-        vtt += [
-            f"{srt_time(start).replace(',', '.')} --> {srt_time(end - 0.35).replace(',', '.')}",
-            script,
-            "",
-        ]
+        # Subtitle: split the slide's narration into short cues timed
+        # proportionally to their char count across the speech window.
+        speak_end = end - 0.35  # tail silence stays uncaptioned
+        chunks = chunk_narration(script)
+        if chunks:
+            total_chars = sum(len(c) for c in chunks)
+            span = max(0.5, speak_end - start)
+            t = start
+            for i, chunk in enumerate(chunks):
+                ratio = len(chunk) / total_chars if total_chars else 1.0
+                t_end = speak_end if i == len(chunks) - 1 else min(t + span * ratio, speak_end)
+                cue_idx += 1
+                srt += [
+                    str(cue_idx),
+                    f"{srt_time(t)} --> {srt_time(t_end)}",
+                    chunk,
+                    "",
+                ]
+                vtt += [
+                    f"{srt_time(t).replace(',', '.')} --> {srt_time(t_end).replace(',', '.')}",
+                    chunk,
+                    "",
+                ]
+                t = t_end
         cursor = end + 0.5
     NARRATION.mkdir(exist_ok=True)
     (NARRATION / "narration_timing.json").write_text(

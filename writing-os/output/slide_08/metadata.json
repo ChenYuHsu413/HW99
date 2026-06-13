@@ -2,7 +2,7 @@
   "slide": 8,
   "width": 1920,
   "height": 1080,
-  "duration": 34.25,
+  "duration": 23.04,
   "layers": [
     {
       "name": "slide_08_title_01.png",
@@ -26,22 +26,9 @@
       "height": 274,
       "z_index": 6,
       "animation": "fade-in-up",
-      "start": 5.03,
+      "start": 3.92,
       "duration": 0.7,
       "narration_cue": "key_point_card"
-    },
-    {
-      "name": "slide_08_arrow_01.png",
-      "type": "arrow",
-      "x": 1039,
-      "y": 185,
-      "width": 104,
-      "height": 108,
-      "z_index": 7,
-      "animation": "wipe-in",
-      "start": 9.61,
-      "duration": 0.7,
-      "narration_cue": "arrow"
     },
     {
       "name": "slide_08_key_point_card_02.png",
@@ -50,9 +37,9 @@
       "y": 183,
       "width": 627,
       "height": 274,
-      "z_index": 8,
+      "z_index": 7,
       "animation": "fade-in-up",
-      "start": 14.19,
+      "start": 7.4,
       "duration": 0.7,
       "narration_cue": "key_point_card"
     },
@@ -63,9 +50,9 @@
       "y": 231,
       "width": 275,
       "height": 450,
-      "z_index": 9,
+      "z_index": 8,
       "animation": "fade-in-up",
-      "start": 18.76,
+      "start": 10.87,
       "duration": 0.7,
       "narration_cue": "key_point_card"
     },
@@ -76,9 +63,9 @@
       "y": 663,
       "width": 722,
       "height": 367,
-      "z_index": 10,
+      "z_index": 9,
       "animation": "fade-in-up",
-      "start": 23.34,
+      "start": 14.34,
       "duration": 0.7,
       "narration_cue": "key_point_card"
     },
@@ -89,9 +76,9 @@
       "y": 663,
       "width": 627,
       "height": 367,
-      "z_index": 11,
+      "z_index": 10,
       "animation": "fade-in-up",
-      "start": 27.92,
+      "start": 17.82,
       "duration": 0.7,
       "narration_cue": "key_point_card"
     }

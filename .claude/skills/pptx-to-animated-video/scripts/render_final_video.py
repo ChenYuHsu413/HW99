@@ -255,7 +255,9 @@ def main():
     subbed = FINAL / "final_video_with_voiceover_and_subtitles.mp4"
     result = subprocess.run(
         [str(FFMPEG), "-y", "-v", "error", "-i", str(out_path),
-         "-vf", "subtitles=narration/subtitles.srt:force_style='FontName=Microsoft JhengHei,FontSize=11,Outline=1.2,Shadow=0,MarginL=30,MarginR=30,MarginV=22'",
+         # Letterbox: shrink slide to top, dark band fills the bottom 120px
+         # for subtitles -- subtitles never overlap slide content this way.
+         "-vf", "scale=1920:960,pad=1920:1080:0:0:color=0x101010,subtitles=narration/subtitles.srt:force_style='FontName=Microsoft JhengHei,FontSize=11,PrimaryColour=&H00FFFFFF,BorderStyle=3,Outline=8,Shadow=0,BackColour=&H66000000,MarginL=30,MarginR=30,MarginV=10'",
          "-c:v", "libx264", "-preset", "veryfast", "-crf", "18",
          "-c:a", "copy", str(subbed)],
         cwd=str(ROOT), capture_output=True, text=True,

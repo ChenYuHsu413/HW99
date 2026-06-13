@@ -66,6 +66,56 @@ def slide_numbers():
 MARGIN = 16
 MAX_LAYERS = 16
 
+# Per-slide fixes from the human review loop. A "merge" region collapses every
+# detected piece inside it -- plus any ink the detector stranded in the
+# background there (the hollow display "Z" on slide 1, "Mode]" on slide 9) --
+# into one layer, because a sentence must animate as one unit. A "suppress"
+# region drops junk pieces (patches of bare grid, frame slivers); their pixels
+# stay in the background.
+OVERRIDES = {
+    1: {"merge": [
+        {"box": [270, 265, 1380, 173], "type": "title"},   # 學術論文寫作全指南
+        {"box": [270, 510, 1380, 115]},                    # 從 A 到 Z 的完美架構…
+        {"box": [295, 850, 965, 115]},                     # bottom paragraph
+    ]},
+    # Slide 2: both panels are now detected by the generic card pass --
+    # their borders pass border_ring_fraction at 1.0 and the size cap admits
+    # half-slide panels -- so no per-slide merge or order override is needed.
+    4: {
+        "merge": [
+            {"box": [70, 60, 1450, 95], "type": "title"},  # [Module 1] The Hook Engine…
+            # The A/B descriptions were welded into one piece by the column
+            # divider; tight regions split them back into two layers. Column C's
+            # short "Cure:" label was dropping out of detection on its own, so
+            # the same tight pull keeps it bundled with 提出解法 underneath.
+            {"box": [100, 505, 292, 235], "absorb": 0.4, "tight": True},
+            {"box": [392, 505, 290, 235], "absorb": 0.4, "tight": True},
+            {"box": [665, 505, 280, 235], "absorb": 0.4, "tight": True},
+        ],
+        # Reveal column by column: letter, then the words below it.
+        "order": [
+            [0, 0, 1920, 260],
+            [95, 260, 335, 520], [430, 260, 230, 520], [660, 260, 280, 520],
+            [940, 260, 280, 520], [1220, 260, 290, 520], [1510, 260, 330, 520],
+            [0, 780, 1920, 300],
+        ],
+    },
+    8: {"suppress": [[1030, 180, 120, 120]]},              # bare-grid patch
+    9: {"merge": [
+        {"box": [60, 50, 740, 70], "type": "title"},       # [Debugger Mode] 系統架構…
+        {"box": [1015, 150, 405, 100]},                    # PG (Graph 架構圖)：…
+        {"box": [140, 575, 520, 105]},                     # PI (Implementation 實作)：…
+        {"box": [1280, 575, 440, 105]},                    # PM (Math 數學證明)：…
+        {"box": [60, 786, 1130, 100]},                     # [Scan 1] sentence
+        {"box": [60, 928, 1130, 72]},                      # [Scan 2] sentence
+    ]},
+    10: {"suppress": [[1825, 780, 45, 260]]},              # right-edge grid sliver
+    11: {"merge": [
+        {"box": [80, 48, 1620, 100], "type": "title"},     # [Module 6] The Output Log…
+        {"box": [40, 845, 690, 195]},                      # Debug Mode Alert box
+    ]},
+}
+
 
 def load_slide(slide_num):
     path = OUT / f"slide_{slide_num:02d}" / "original.png"
@@ -251,6 +301,100 @@ def merge_pass(boxes, predicate):
     return boxes
 
 
+def collage_cluster(pieces, raw):
+    """Group spatially-tight illustration pieces into single collage layers.
+
+    Pairwise merge rules can't see that 5 overlapping paper outlines, a
+    sticker spray, or any pile of irregular shapes reads as ONE illustration
+    -- they only judge adjacent pairs and big shapes don't satisfy the
+    word-gap or dash-chain rules. This pass finds connected clusters of
+    pieces that touch or overlap, fill a non-trivial fraction of their joint
+    bbox, and live inside a bounded region, and collapses each cluster into
+    one piece. A column corridor between two pieces still vetoes the merge
+    so grid layouts (icon over caption x 6) don't collapse into one blob.
+    """
+    n = len(pieces)
+    if n < 3:
+        return pieces
+
+    parent = list(range(n))
+
+    def find(i):
+        while parent[i] != i:
+            parent[i] = parent[parent[i]]
+            i = parent[i]
+        return i
+
+    def adjacent(a, b):
+        gap_x, gap_y, ovx, ovy = axis_gap_overlap(a, b)
+        # Overlapping shapes (a paper pile, a sticker stack).
+        if ovx > 0 and ovy > 0:
+            return True
+        # Nearby shapes that align on at least one axis: a tiled illustration
+        # rarely has pieces more than ~80px apart, while a grid layout
+        # (chevron-A vs chevron-B at 179px gap) stays well outside this.
+        # Cross-column corridors and the bbox/density caps below veto the
+        # case where two genuinely distinct elements happen to fall within
+        # 80px of each other.
+        if gap_x + gap_y < 80 and max(ovx, ovy) > 0:
+            if cross_column_gap(a, b, raw):
+                return False
+            return True
+        return False
+
+    for i in range(n):
+        for j in range(i + 1, n):
+            if adjacent(pieces[i], pieces[j]):
+                ri, rj = find(i), find(j)
+                if ri != rj:
+                    parent[ri] = rj
+
+    groups = {}
+    for i in range(n):
+        groups.setdefault(find(i), []).append(i)
+
+    merged = []
+    used = set()
+    for indices in groups.values():
+        if len(indices) < 3:
+            continue
+        members = [pieces[i] for i in indices]
+        x1 = min(m[0] for m in members)
+        y1 = min(m[1] for m in members)
+        x2 = max(m[0] + m[2] for m in members)
+        y2 = max(m[1] + m[3] for m in members)
+        bw, bh = x2 - x1, y2 - y1
+        bbox_area = bw * bh
+        # Not the whole slide (would collapse legit multi-element regions),
+        # not a stray dot pile either.
+        if bbox_area > 0.30 * WIDTH * HEIGHT or bbox_area < 60000:
+            continue
+        # Density: members must fill enough of their joint bbox. A loose
+        # constellation of axis labels or stray annotations leaves most
+        # of the bbox empty.
+        member_area = sum(m[2] * m[3] for m in members)
+        if member_area / bbox_area < 0.30:
+            continue
+        # A very elongated cluster is more likely a chain of caption text or
+        # a connector run than an illustration collage.
+        if min(bw, bh) > 0 and max(bw, bh) / min(bw, bh) > 4:
+            continue
+        # Raw ink density distinguishes a real collage (paper pile, sticker
+        # spray -- ink fills most of the bbox) from a structured grid layout
+        # (chevron letters + caption text -- mostly empty space with hollow
+        # outlines and sparse glyphs). Measured: slide 4 A/B grid ~0.14,
+        # slide 2 paper pile ~0.19. 0.17 keeps the pile, rejects the grid.
+        bbox_region = raw[y1:y2, x1:x2]
+        if bbox_region.size == 0 or float((bbox_region > 0).mean()) < 0.17:
+            continue
+        merged.append([x1, y1, bw, bh])
+        used.update(indices)
+
+    if not merged:
+        return pieces
+    return [pieces[i] for i in range(n) if i not in used] + merged
+
+
 def tight_refine(box, raw_mask, pad=5):
     x, y, w, h = box
     x, y = max(0, x), max(0, y)
@@ -306,13 +450,12 @@ def detect_cards(connected, raw):
         if cv2.contourArea(c) < 0.55 * w * h:
             continue  # crescent-shaped hole, not a box interior
         # Blueprint decks wrap whole slides/diagrams in decorative frames whose
-        # interiors are also holes; a near-slide-spanning hole is a container
-        # (or an empty slice between an outer border and the content), not a
-        # card. Its border ink stays connective and lands in the background.
-        # 0.35 also rejects half-slide panels fenced off by a centre divider
-        # plus the slide border; the biggest real card (a comparison table)
-        # is ~31% of the slide.
-        if w > 0.9 * WIDTH or h > 0.9 * HEIGHT or w * h > 0.35 * WIDTH * HEIGHT:
+        # interiors are also holes; a near-slide-spanning hole is a container,
+        # not a card. Its border ink stays connective and lands in the
+        # background. 0.48 admits half-slide panel cards (slide 2's left and
+        # right panels are ~38% each with ring=1.0) while still rejecting
+        # outer slide chrome (>0.9 width or height) and >=50% containers.
+        if w > 0.9 * WIDTH or h > 0.9 * HEIGHT or w * h > 0.48 * WIDTH * HEIGHT:
             continue
         # Phantom holes (empty space fenced in by frames, connector webs or
         # curved arrows) pass the rectangularity test but have no drawn border
@@ -360,7 +503,88 @@ def red_ratio_of(img, box):
     return int((region > 0).sum()) / ink_count
 
 
-def detect_elements(img):
+def apply_overrides(items, raw, img, slide_num):
+    ov = OVERRIDES.get(slide_num)
+    if not ov:
+        return items
+
+    def coverage(box, region):
+        return intersection_area(box, region) / max(1, box[2] * box[3])
+
+    for region in ov.get("suppress", []):
+        items = [it for it in items if coverage(it["box"], region) < 0.6]
+    for spec in ov.get("merge", []):
+        region = spec["box"]
+        threshold = spec.get("absorb", 0.6)
+        inside, excluded = [], []
+        for it in items:
+            if coverage(it["box"], region) < threshold:
+                continue
+            # With exclude_red, a red piece inside the region (the REJECTED
+            # stamp on the paper pile) keeps its own layer; the merged layer
+            # gets alpha holes there so the stamp can land on top later.
+            if spec.get("exclude_red") and red_ratio_of(img, it["box"]) > 0.4:
+                excluded.append(it)
+            else:
+                inside.append(it)
+        inside_ids = {id(it) for it in inside}
+        items = [it for it in items if id(it) not in inside_ids]
+        rx, ry, rw, rh = region
+        ys, xs = np.where(raw[ry : ry + rh, rx : rx + rw] > 0)
+        ink_box = None
+        if len(xs):
+            # Ink the detector left in the background inside this region
+            # belongs to the merged layer too.
+            ink_box = [
+                rx + int(xs.min()), ry + int(ys.min()),
+                int(xs.max() - xs.min()) + 1, int(ys.max() - ys.min()) + 1,
+            ]
+        if spec.get("tight"):
+            # Split mode: the region carves its own ink out of a consumed
+            # wider piece, so the absorbed piece's bbox must not widen it.
+            boxes = [ink_box] if ink_box else []
+        else:
+            boxes = [it["box"] for it in inside] + ([ink_box] if ink_box else [])
+        if not boxes:
+            continue
+        box = boxes[0]
+        for b in boxes[1:]:
+            box = union_box(box, b)
+        item = {
+            "box": list(box),
+            "sort_box": list(box),
+            "card": any(it["card"] for it in inside),
+            "highlight": any(it["highlight"] for it in inside),
+            "force_type": spec.get("type"),
+        }
+        if excluded:
+            # Hole out ALL red ink in the region (the stamp's frame reaches
+            # beyond its detected bbox) and grow the excluded piece's box to
+            # cover every hole, so the full stamp appears in one moment and
+            # reconstruction stays perfect.
+            red = cv2.dilate(
+                red_mask_loose(img),
+                cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7)),
+            )
+            region_red = np.zeros_like(red)
+            region_red[ry : ry + rh, rx : rx + rw] = red[ry : ry + rh, rx : rx + rw]
+            ys2, xs2 = np.where(region_red > 0)
+            if len(xs2):
+                red_box = [
+                    int(xs2.min()), int(ys2.min()),
+                    int(xs2.max() - xs2.min()) + 1, int(ys2.max() - ys2.min()) + 1,
+                ]
+                mask = np.full((HEIGHT, WIDTH), 255, dtype=np.uint8)
+                mask[region_red > 0] = 0
+                item["force_mask"] = mask
+                for ex in excluded:
+                    ex["box"] = union_box(ex["box"], red_box)
+                    ex["sort_box"] = list(ex["box"])
+        items.append(item)
+    return items
+
+
+def detect_elements(img, slide_num):
     raw = ink_mask(img)
     connected = connect_mask(raw)
     cards = detect_cards(connected, raw)
@@ -418,6 +642,7 @@ def detect_elements(img):
             continue
         pieces.append([x, y, w, h])
     pieces = merge_pass(pieces, lambda a, b: should_merge(a, b, raw_remaining))
+    pieces = collage_cluster(pieces, raw_remaining)
 
     # Group red annotation strokes (circle, doodle arrow, note text) together.
     def red_pair(a, b):
@@ -601,8 +826,12 @@ def detect_elements(img):
             # A small piece (arrow) never has ink inside the card rect -- its
             # overlap is only bbox padding, so trimming is always safe. A big
             # piece overlapping by more than a sliver is an annotation whose
-            # strokes continue inside the card crop; keep them together.
-            if not small and cut > 14:
+            # strokes continue inside the card crop; keep them together. But
+            # the cut must be a meaningful fraction of the piece -- otherwise
+            # a wide footer banner grazing the bottom of a panel card by 15px
+            # gets falsely absorbed and inflates the card across the slide.
+            perp = box[3] if side in ("top", "bottom") else box[2]
+            if not small and cut > 14 and cut > 0.20 * perp:
                 absorb(card_item, item)
                 items.remove(item)
                 break
@@ -664,6 +893,8 @@ def detect_elements(img):
                         break
             if changed:
                 break
+
+    items = apply_overrides(items, raw, img, slide_num)
 
     # Keep layer count manageable: merge nearest pieces.
     while len(items) > MAX_LAYERS:
@@ -811,7 +1042,7 @@ def segment_slide(slide_num, debug=True):
         if old.name != "original.png":
             old.unlink()
 
-    items, raw = detect_elements(img)
+    items, raw = detect_elements(img, slide_num)
     # Reading order: cluster items into rows by vertical centre, then go
     # left-to-right inside each row. (Fixed-size banding misorders rows whose
     # centres straddle a band boundary.)
@@ -831,6 +1062,19 @@ def segment_slide(slide_num, debug=True):
         for _, row in rows
         for it in sorted(row, key=lambda i: i["sort_box"][0])
     ]
+    # An "order" override re-buckets items by which region holds their centre
+    # (e.g. slide 4 reveals column by column: letter, then the words below).
+    # The sort is stable, so ties keep the reading order computed above.
+    order_regions = OVERRIDES.get(slide_num, {}).get("order")
+    if order_regions:
+        def order_key(it):
+            x, y, w, h = it["sort_box"]
+            cx, cy = x + w / 2, y + h / 2
+            for idx, (rx, ry, rw, rh) in enumerate(order_regions):
+                if rx <= cx < rx + rw and ry <= cy < ry + rh:
+                    return idx
+            return len(order_regions)
+        items.sort(key=order_key)
     fill_color = background_fill_color(img, raw)
 
     duration = audio_duration(AUDIO / f"slide_{slide_num:02d}_voiceover.mp3")
@@ -842,8 +1086,13 @@ def segment_slide(slide_num, debug=True):
     red_loose = red_mask_loose(img)
     entries = []
     for item in items:
-        layer_type = classify(item["box"], img, raw, item["card"], item["highlight"])
-        entry = dict(item, type=layer_type, annot_masks=[], mask=None, src=item)
+        layer_type = item.get("force_type") or classify(
+            item["box"], img, raw, item["card"], item["highlight"]
+        )
+        entry = dict(
+            item, type=layer_type, annot_masks=[],
+            mask=item.get("force_mask"), src=item,
+        )
         entries.append(entry)
         if layer_type in ("chart", "table"):
             for group in extract_red_annotations(img, red_loose, item["box"]):
